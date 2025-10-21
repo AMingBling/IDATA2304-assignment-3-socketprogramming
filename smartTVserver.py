@@ -1,9 +1,12 @@
 import socket
+import sys
 from functions import handle_command
 
 def main():
     host = "127.0.0.1"
-    port = 65432
+    default_port = 1238
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else default_port
+
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         server_socket.bind((host, port))
