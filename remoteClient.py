@@ -1,4 +1,5 @@
 import socket
+import sys
 
 def display_status(sock):
     sock.sendall("6".encode())
@@ -7,7 +8,9 @@ def display_status(sock):
 
 def main():
     host = "127.0.0.1"
-    port = 1238
+    default_port = 1238
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else default_port
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((host, port))
