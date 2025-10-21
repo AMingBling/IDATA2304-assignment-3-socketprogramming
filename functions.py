@@ -1,4 +1,5 @@
 tv_state = {"power": False, "channel": 1}
+available_channels = [1, 2, 3, 4, 5, 6, 7]
 def handle_command(command:str):
     parts = command.strip().split(" ", 1)
     if not parts:
@@ -18,16 +19,19 @@ def handle_command(command:str):
         else:
             return "Error: Invalid channel number"
     elif cmd == "5":
-        return get_status()
+        return "Available channels: " + ", ".join(map(str, available_channels))
     elif cmd == "6":
+        return get_status()
+    elif cmd == "7":
         return(
             "Supported commands:\n"
             " [1] : Turn TV on/off 📺\n"
             " [2] : Increase channel by one ⬆️\n"
             " [3] : Decrease channel by one ⬇️\n"
             " [4] <number> : Set channel to <number> #️⃣\n"
-            " [5] : Get TV status 📊\n"
-            " [6] : Show this message ❓\n"
+            " [5] : List available channels 🔢\n"
+            " [6] : Get TV status 📊\n"
+            " [7] : Show this message ❓\n"
         )
     else:
         return "Error: Unknown command"
@@ -39,15 +43,17 @@ def toggle_power():
 def change_channel(direction: int):
     if not tv_state["power"]:
         return "Error: TV is OFF"
-    tv_state["channel"] += direction
-    if tv_state["channel"] < 1:
-        tv_state["channel"] = 1
+    current_index = available_channels.index(tv_state["channel"])
+    new_index = current_index + direction
+    if new_index < 0 or new_index >= len(available_channels):
+        return "Error: No more channels in this direction"
+    tv_state["channel"] = available_channels[new_index]
     return f"Channel changed to {tv_state['channel']}"
 
 def set_channel(channel: int):
     if not tv_state["power"]:
         return "Error: TV is OFF"
-    if channel < 1:
+    if channel not in available_channels:
         return "Error: Invalid channel number"
     tv_state["channel"] = channel
     return f"Channel set to {tv_state['channel']}"
