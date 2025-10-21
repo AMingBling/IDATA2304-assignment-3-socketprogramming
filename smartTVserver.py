@@ -11,7 +11,7 @@ def main():
         print(f"TV server listening on {host}:{port}")
         conn, addr = server_socket.accept()
         print(f"Connected to remote control at {addr}")
-        conn.sendall(b"Welcome to the Smart TV server! Type 'help' for commands.\n")
+        conn.sendall(b"Welcome to the Smart TV server! Type '6' for available commands.\n")
         while True:
             command = conn.recv(1024).decode().strip()
             if not command or command.lower() == "quit":

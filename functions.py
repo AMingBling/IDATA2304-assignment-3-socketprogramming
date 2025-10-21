@@ -6,28 +6,28 @@ def handle_command(command:str):
     cmd = parts[0].lower()
     args = parts[1] if len(parts) > 1 else ""
     
-    if cmd == "power":
+    if cmd == "1":
         return toggle_power()
-    elif cmd == "channel_up":
+    elif cmd == "2":
         return change_channel(1)
-    elif cmd == "channel_down":
+    elif cmd == "3":
         return change_channel(-1)
-    elif cmd == "set_channel":
+    elif cmd == "4":
         if args.isdigit():
             return set_channel(int(args))
         else:
             return "Error: Invalid channel number"
-    elif cmd == "status":
+    elif cmd == "5":
         return get_status()
-    elif cmd == "help":
+    elif cmd == "6":
         return(
             "Supported commands:\n"
-            "- power: Turn TV on/off\n"
-            "- channel_up: Increase channel by one\n"
-            "- channel_down: Decrease channel by one\n"
-            "- set_channel <number>: Set channel to <number>\n"
-            "- status: Get TV status\n"
-            "- help: Show this message\n"
+            " [1] : Turn TV on/off 📺\n"
+            " [2] : Increase channel by one ⬆️\n"
+            " [3] : Decrease channel by one ⬇️\n"
+            " [4] <number> : Set channel to <number> #️⃣\n"
+            " [5] : Get TV status 📊\n"
+            " [6] : Show this message ❓\n"
         )
     else:
         return "Error: Unknown command"
