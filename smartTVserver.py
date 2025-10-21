@@ -1,5 +1,6 @@
 import socket
 import sys
+from smartTV import SmartTV
 from functions import handle_command
 
 def main():
